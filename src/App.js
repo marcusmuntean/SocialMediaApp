@@ -14,12 +14,14 @@ function App() {
   const [username, setUsername] = useState("");
   const [content, setContent] = useState("");
   const [allPosts, setAllPosts] = useState(null);
+  const [idArray, setIdArray] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:9000/posts/info")
       .then((res) => res.json())
       .then((text) => {
         setAllPosts(text.result);
+        setIdArray(text.ids);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -84,9 +86,14 @@ function App() {
         </DialogActions>
       </Dialog>
       {allPosts &&
-        allPosts.map((obj) => (
+        idArray &&
+        allPosts.map((obj, index) => (
           <>
-            <Post content={obj.Content} username={obj.Username} />
+            <Post
+              content={obj.Content}
+              username={obj.Username}
+              id={idArray[index]}
+            />
           </>
         ))}
     </div>
