@@ -50,11 +50,15 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Social Media App</h1>
+      <h1>Message Board</h1>
       <Button variant="contained" onClick={() => handleClickOpen()}>
         + Create New Post
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{ sx: { width: "40%", height: "50%" } }}
+      >
         <DialogTitle>New Post:</DialogTitle>
         <DialogContent>
           <TextField
@@ -71,9 +75,11 @@ function App() {
           <TextField
             autoFocus
             margin="dense"
-            label="Content"
+            label="Message"
             fullWidth
-            variant="standard"
+            multiline
+            rows={9}
+            variant="filled"
             value={content}
             onChange={(e) => {
               setContent(e.target.value);
@@ -85,17 +91,24 @@ function App() {
           <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
-      {allPosts &&
-        idArray &&
-        allPosts.map((obj, index) => (
-          <>
-            <Post
-              content={obj.Content}
-              username={obj.Username}
-              id={idArray[index]}
-            />
-          </>
-        ))}
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {allPosts &&
+          idArray &&
+          allPosts.map((obj, index) => (
+            <>
+              <Post
+                content={obj.Content}
+                username={obj.Username}
+                id={idArray[index]}
+              />
+            </>
+          ))}
+      </div>
     </div>
   );
 }

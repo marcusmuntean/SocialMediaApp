@@ -43,19 +43,16 @@ export default function Post(props) {
 
   return (
     <>
-      <Box sx={{ minWidth: 275 }}>
+      <Box sx={{ width: "60%" }} marginTop="15px" marginLeft="20%">
         <Card variant="outlined">
           {
             <>
               <CardContent>
-                <Typography variant="h5" component="div">
-                  Post
+                <Typography variant="h4" component="div" marginBottom="15px">
+                  {props.username}
                 </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  Username: {props.username}
-                </Typography>
-                <Typography variant="body2">
-                  Content: {props.content}
+                <Typography variant="body1" marginBottom="10px">
+                  {props.content}
                 </Typography>
                 <Button
                   sx={{
@@ -71,6 +68,7 @@ export default function Post(props) {
                   sx={{
                     color: "red",
                     ":hover": { bgcolor: "#9c1e1e", color: "white" },
+                    marginLeft: "10px",
                   }}
                   onClick={() => handleDelete()}
                   autoFocus
@@ -82,7 +80,11 @@ export default function Post(props) {
           }
         </Card>
       </Box>
-      <Dialog open={open} onClose={() => setOpen(false)}>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        PaperProps={{ sx: { width: "40%", height: "41%" } }}
+      >
         <DialogTitle>Editing Post:</DialogTitle>
         <DialogContent>
           <TextField
@@ -90,7 +92,9 @@ export default function Post(props) {
             margin="dense"
             label="New message"
             fullWidth
-            variant="standard"
+            multiline
+            rows={9}
+            variant="filled"
             value={message}
             onChange={(e) => {
               setMessage(e.target.value);
